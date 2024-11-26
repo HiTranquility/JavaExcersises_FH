@@ -1,9 +1,8 @@
 package BT6;
 
 public class BigNum {
-    private String number;  // Change to String for simpler operations
+    private String number;  
 
-    // Constructor that accepts various types
     public BigNum(Object number) {
         if (number instanceof String) {
             this.number = (String) number;
@@ -16,14 +15,11 @@ public class BigNum {
         }
     }
 
-    // Getter for number
     public String getNumber() {
         return this.number;
     }
 
-    // Add method (returns a new BigNum) with sign handling
     public BigNum add(BigNum other) {
-        // Handle addition when one of the numbers is negative
         if (this.number.startsWith("-") && !other.number.startsWith("-")) {
             return other.subtract(new BigNum(this.number.substring(1)));
         } else if (!this.number.startsWith("-") && other.number.startsWith("-")) {
@@ -35,7 +31,6 @@ public class BigNum {
         return new BigNum(addAbsoluteValues(this.number, other.number));
     }
 
-    // Helper to add absolute values (ignores signs)
     private String addAbsoluteValues(String n1, String n2) {
         StringBuilder result = new StringBuilder();
         int carry = 0;
@@ -60,7 +55,6 @@ public class BigNum {
         return result.reverse().toString();
     }
 
-    // Subtract method with sign handling
     public BigNum subtract(BigNum other) {
         if (this.number.startsWith("-") && !other.number.startsWith("-")) {
             return new BigNum("-" + addAbsoluteValues(this.number.substring(1), other.number));
@@ -73,7 +67,6 @@ public class BigNum {
         return new BigNum(subtractAbsoluteValues(this.number, other.number));
     }
 
-    // Helper to subtract absolute values
     private String subtractAbsoluteValues(String n1, String n2) {
         StringBuilder result = new StringBuilder();
         int borrow = 0;
@@ -97,7 +90,6 @@ public class BigNum {
             result.append(diff);
         }
 
-        // Remove trailing zeros
         while (result.length() > 1 && result.charAt(result.length() - 1) == '0') {
             result.deleteCharAt(result.length() - 1);
         }
@@ -105,7 +97,6 @@ public class BigNum {
         return result.reverse().toString();
     }
 
-    // Multiply method
     public BigNum multiply(BigNum other) {
         String n1 = this.number.startsWith("-") ? this.number.substring(1) : this.number;
         String n2 = other.number.startsWith("-") ? other.number.substring(1) : other.number;
@@ -132,7 +123,6 @@ public class BigNum {
         return result;
     }
 
-    // New mod method to return the remainder
     public BigNum mod(BigNum other) {
         BigNum dividend = new BigNum(this.number);
         while (dividend.compareTo(other) >= 0) {
@@ -141,14 +131,12 @@ public class BigNum {
         return dividend;
     }
 
-    // Compare method
     public int compareTo(BigNum other) {
         if (this.number.length() > other.number.length()) return 1;
         if (this.number.length() < other.number.length()) return -1;
         return this.number.compareTo(other.number);
     }
 
-    // GCD method with corrected algorithm
     public BigNum gcd(BigNum other) {
         BigNum a = this;
         BigNum b = other;
@@ -188,7 +176,6 @@ public class BigNum {
             quotient.append(count);
         }
 
-        // Remove leading zeros in the quotient
         while (quotient.length() > 1 && quotient.charAt(0) == '0') {
             quotient.deleteCharAt(0);
         }
