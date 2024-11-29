@@ -7,7 +7,7 @@ public class Library {
 	public Library() 
 	{
 	}
-	public void showallBookList() {
+	public void showAllBooks() {
 	    if (bookList.isEmpty()) {
             System.out.println("No books available.");
         } else {
@@ -39,10 +39,10 @@ public class Library {
 		for (int i = 0; i < bookList.size();)
 		{
 			Book currentBook = bookList.get(i);
-			if(currentBook.getId() == id) {
-				bookList.remove(i);
-	            System.out.println("Book with ID " + id + " has been removed.");
-				return;
+			if (currentBook.getId().equals(id)) {
+			    bookList.remove(i);
+			    System.out.println("Book with ID " + id + " has been removed.");
+			    return;
 			}
 		}
 	    System.out.println("Book with ID " + id + " not found.");
